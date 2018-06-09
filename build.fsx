@@ -52,5 +52,8 @@ Target.create "Nuget" (fun _ ->
     projectSrc |> DotNet.pack (fun p -> { p with Configuration = DotNet.Custom "Release"; OutputPath = Some "../../nuget"; Common = { p.Common with CustomParams = Some args } })
 )
 
+open Fake.Core.TargetOperators
+"RunTests" ==> "Nuget"
+
 // start build
 Target.runOrDefault "Build"

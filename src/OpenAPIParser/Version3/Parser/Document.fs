@@ -21,7 +21,7 @@ let parseFromYaml content =
     yaml.Load(reader)
     yaml.Documents.[0].RootNode |> toMappingNode |> parse
 
-let readFile p = p |> File.ReadAllText
+let private readFile p = p |> File.ReadAllText
 
 let loadFromYamlFile file = file |> readFile |> parseFromYaml
 
