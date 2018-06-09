@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="SampleLoader.fs" />
+    <Compile Include="Parser\Schema.fs" />
+    <Compile Include="Parser\Info.fs" />
+    <Compile Include="Parser\Header.fs" />
+    <Compile Include="Parser\RequestBody.fs" />
+    <Compile Include="Parser\Response.fs" />
+    <Compile Include="Parser\Parameter.fs" />
+    <Compile Include="Parser\Operation.fs" />
+    <Compile Include="Parser\Document.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples/**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenAPIParser\OpenAPIParser.fsproj" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

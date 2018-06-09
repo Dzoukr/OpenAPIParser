@@ -1,0 +1,10 @@
+source https://api.nuget.org/v3/index.json
+
+nuget FSharp.Core
+nuget YamlDotNet
+nuget Newtonsoft.Json
+nuget NUnit
+nuget NUnit3TestAdapter
+nuget Microsoft.NET.Test.Sdk
+
+clitool dotnet-fake

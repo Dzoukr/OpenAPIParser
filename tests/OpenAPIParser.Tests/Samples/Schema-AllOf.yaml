@@ -1,0 +1,24 @@
+Mixed:
+  allOf:
+    - type: object
+      properties:
+        name:
+          type: string
+    - type: object
+      properties:
+        age:
+          type: integer
+
+Basic:
+  type: object
+  properties:
+    name:
+      type: string
+
+Extended:
+  allOf:
+    - $ref: '#/Basic'
+    - type: object
+      properties:
+        age:
+          type: integer
