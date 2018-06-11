@@ -2,5 +2,185 @@
 <doc>
 <assembly><name>OpenAPIParser</name></assembly>
 <members>
+<member name="M:OpenAPIParser.Version3.Parser.Core.findSchema(Microsoft.FSharp.Core.FSharpFunc{YamlDotNet.RepresentationModel.YamlNode,OpenAPIParser.Version3.Specification.Schema},YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Find schema
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.findByRef(YamlDotNet.RepresentationModel.YamlMappingNode,System.String)">
+<summary>
+ Find node by ref string
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.someOrEmptyList``1(Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Collections.FSharpList{``0}})">
+<summary>
+ Some or empty list
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.someOrEmptyMap``2(Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Collections.FSharpMap{``0,``1}})">
+<summary>
+ Some or empty map
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.someBoolOr(System.Boolean,Microsoft.FSharp.Core.FSharpOption{System.String})">
+<summary>
+ Some or default (bool) value
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.toNamedMapM``1(Microsoft.FSharp.Core.FSharpFunc{YamlDotNet.RepresentationModel.YamlMappingNode,``0})">
+<summary>
+ Convert node to map with map function
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.toNamedMap(YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Convert node to map
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.toMappingNode(YamlDotNet.RepresentationModel.YamlNode)">
+<summary>
+ Convert node to mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.tryFindScalarValueM``1(System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,``0})">
+<summary>
+ Try find scalar value by name with map function
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.tryFindScalarValue(System.String)">
+<summary>
+ Try find scalar value by name
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.findScalarValueM``1(System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,``0})">
+<summary>
+ Find scalar value by name with map function
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.findScalarValue(System.String)">
+<summary>
+ Find scalar value by name
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.seqValue(YamlDotNet.RepresentationModel.YamlNode)">
+<summary>
+ Get node as list of nodes
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.value(YamlDotNet.RepresentationModel.YamlNode)">
+<summary>
+ Get node scalar value
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.tryFindByNameM``1(System.String,Microsoft.FSharp.Core.FSharpFunc{YamlDotNet.RepresentationModel.YamlNode,``0})">
+<summary>
+ Try find node by name with map function
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.tryFindByName(System.String,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Try find node by name
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.findByNameM``1(System.String,Microsoft.FSharp.Core.FSharpFunc{YamlDotNet.RepresentationModel.YamlNode,``0})">
+<summary>
+ Find node by name with map function
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Core.findByName(System.String,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Find node by name
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Contact.parse(YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Contact from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.License.parse(YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse License from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Info.parse(YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Info from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Schema.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Schema from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Header.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Header from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.MediaType.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse MediaType from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.RequestBody.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse RequestBody from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Response.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Response from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Parameter.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Parameter from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Components.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Components from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Operation.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Operation from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Path.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse Path from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.loadFromJsonFile(System.String)">
+<summary>
+ Load specification from JSON file
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.parseFromJson(System.String)">
+<summary>
+ Parse specification from JSON string
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.convertJsonToYaml(System.String)">
+<summary>
+ Convert JSON string to YAML
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.loadFromYamlFile(System.String)">
+<summary>
+ Load specification from YAML file
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.parseFromYaml(System.String)">
+<summary>
+ Parse specification from YAML string
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.parse(YamlDotNet.RepresentationModel.YamlMappingNode)">
+<summary>
+ Parse specification from mapping node
+</summary>
+</member>
 </members>
 </doc>

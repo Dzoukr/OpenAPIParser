@@ -13,7 +13,7 @@ open Fake.DotNet
 open Fake.DotNet.Testing
 open Fake.Core
 
-let description = "Open API Parser"
+let description = "Simple F# parser for Open API specification"
 let projectSrc = "src/OpenAPIParser"
 let testsSrc = "tests/OpenAPIParser.Tests"
 
@@ -27,6 +27,14 @@ Target.create "RunTests" (fun _ ->
 
 // Read release notes & version info from RELEASE_NOTES.md
 let release = ReleaseNotes.load "RELEASE_NOTES.md"
+
+Target.create "CleanBinObj" (fun _ -> 
+    !! "src/*/bin"
+    ++ "src/*/obj"
+    ++ "tests/*/bin"
+    ++ "tests/*/obj"
+    |> Shell.deleteDirs
+)
 
 Target.create "Nuget" (fun _ ->
     let toNotes = List.map (fun x -> x + System.Environment.NewLine) >> List.fold (+) ""
@@ -53,7 +61,7 @@ Target.create "Nuget" (fun _ ->
 )
 
 open Fake.Core.TargetOperators
-"RunTests" ==> "Nuget"
+"RunTests" ==> "CleanBinObj" ==> "Nuget"
 
 // start build
 Target.runOrDefault "Build"

@@ -4,6 +4,7 @@ open OpenAPIParser.Version3.Specification
 open Core
 open YamlDotNet.RepresentationModel
 
+/// Parse MediaType from mapping node
 let parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
     {
         Schema = node |> findSchema (toMappingNode >> Schema.parse rootNode)

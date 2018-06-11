@@ -5,6 +5,7 @@ open OpenAPIParser.Version3.Specification
 open Core
 open YamlDotNet.RepresentationModel
 
+/// Parse Path from mapping node
 let parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = {
     Summary = node |> tryFindScalarValue "summary"
     Description = node |> tryFindScalarValue "description"

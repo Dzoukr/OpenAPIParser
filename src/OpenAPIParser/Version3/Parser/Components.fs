@@ -5,6 +5,7 @@ open OpenAPIParser.Version3.Specification
 open Core
 open YamlDotNet.RepresentationModel
 
+/// Parse Components from mapping node
 let parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
     {
         Schemas = 

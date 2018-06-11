@@ -4,6 +4,7 @@ open OpenAPIParser.Version3.Specification
 open Core
 open YamlDotNet.RepresentationModel
 
+/// Parse Response from mapping node
 let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
     
     let parseDirect node =

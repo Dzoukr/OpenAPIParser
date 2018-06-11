@@ -59,7 +59,7 @@ let private mergeSchemas (schemas:Schema list) =
     | [] -> failwith "Schema list should not be empty"
     | list -> list |> List.reduce mergeSchemaPair
 
-
+/// Parse Schema from mapping node
 let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
     
     let parseDirect node =

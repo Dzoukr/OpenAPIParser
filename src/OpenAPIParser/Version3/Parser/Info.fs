@@ -5,6 +5,7 @@ open OpenAPIParser.Version3.Specification
 open Core
 open YamlDotNet.RepresentationModel
 
+/// Parse Info from mapping node
 let parse (node:YamlMappingNode) = 
     {
         Title = node |> findScalarValue "title"
