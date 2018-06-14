@@ -1,10 +1,14 @@
 source https://api.nuget.org/v3/index.json
 
-nuget FSharp.Core
-nuget YamlDotNet
-nuget Newtonsoft.Json
+nuget FSharp.Core = 4.2.3
+nuget YamlDotNet = 4.3.1
+nuget Newtonsoft.Json = 10.0.1
 nuget NUnit
 nuget NUnit3TestAdapter
 nuget Microsoft.NET.Test.Sdk
 
-clitool dotnet-fake
+group FakeBuild
+    source https://api.nuget.org/v3/index.json
+
+    clitool dotnet-fake
+    nuget FSharp.Core = 4.5.0

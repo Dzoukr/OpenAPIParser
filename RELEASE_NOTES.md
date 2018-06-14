@@ -1,3 +1,6 @@
+### 1.0.3 - June 12 2018
+* Lowering minimal dependencies version
+
 ### 1.0.2 - June 11 2018
 * Added comments to public functions
 

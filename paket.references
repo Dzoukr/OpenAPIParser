@@ -1,1 +1,3 @@
-dotnet-fake
+group FakeBuild
+    FSharp.Core
+    dotnet-fake
