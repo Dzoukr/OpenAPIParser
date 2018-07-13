@@ -60,14 +60,14 @@ let private mergeSchemas (schemas:Schema list) =
     | list -> list |> List.reduce mergeSchemaPair
 
 /// Parse Schema from mapping node
-let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
+let rec parse findByRef (node:YamlMappingNode) =
     
     let parseDirect node =
         match node with
-        | AllOf n -> n |> List.map (toMappingNode >> parse rootNode) |> mergeSchemas
+        | AllOf n -> n |> List.map (toMappingNode >> parse findByRef) |> mergeSchemas
         | Array ->
             let items = node |> findByName "items" |> toMappingNode
-            items |> parse rootNode |> Schema.Array
+            items |> parse findByRef |> Schema.Array
         | Integer -> node |> tryParseFormat intFormatFromString |> Schema.Integer
         | String -> node |> tryParseFormat stringFormatFromString |> Schema.String
         | Boolean -> Schema.Boolean
@@ -75,7 +75,7 @@ let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
         | _ ->
             match node |> tryFindByNameM "properties" toMappingNode with
             | Some p ->
-                let props = p |> toMappingNode |> toNamedMapM (parse rootNode)
+                let props = p |> toMappingNode |> toNamedMapM (parse findByRef)
                 let required = 
                     node |> tryFindByName "required" 
                     |> Option.map seqValue
@@ -83,12 +83,7 @@ let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
                     |> optionToList
                 Schema.Object(props, required)
             | None -> Schema.Empty
-
-    let parseRef refString =
-        refString 
-        |> findByRef rootNode
-        |> parse rootNode
     
     match node with
-    | Ref r -> r |> parseRef
+    | Ref r -> r |> findByRef |> parse findByRef
     | _ -> node |> parseDirect

@@ -49,11 +49,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Pet'
         default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     post:
       description: Creates a new pet in the store.  Duplicates are allowed
       operationId: addPet
@@ -72,11 +68,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pet'
         default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
   /pets/{id}:
     get:
       description: Returns a user based on a single ID, if the user does not have access to the pet
@@ -97,11 +89,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pet'
         default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
     delete:
       description: deletes a single pet based on the ID supplied
       operationId: deletePet
@@ -117,15 +105,11 @@ paths:
         '204':
           description: pet deleted
         default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/Error'
 components:
   responses:  
     Error:
-      description: Blah blah
+      description: Unexpected error
       content:
         application/json:
           schema:

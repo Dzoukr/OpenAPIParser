@@ -6,6 +6,5 @@ open OpenAPIParser.Tests
 
 [<Test>]
 let ``Parses document (Petstore)``() = 
-    let x = "Document-Petstore.yaml" |> SampleLoader.parse Document.parse |> ignore
-    let y = x
+    "Document-Petstore.yaml" |> SampleLoader.parse Document.parse |> ignore
     Assert.Pass()

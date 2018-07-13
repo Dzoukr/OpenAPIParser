@@ -5,26 +5,21 @@ open Core
 open YamlDotNet.RepresentationModel
 
 /// Parse Response from mapping node
-let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
+let rec parse findByRef (node:YamlMappingNode) = 
     
     let parseDirect node =
         {
             Description = node |> findScalarValue "description"
             Headers = 
                 node |> tryFindByName "headers" 
-                |> Option.map (toMappingNode >> toNamedMapM (Header.parse rootNode))
+                |> Option.map (toMappingNode >> toNamedMapM (Header.parse findByRef))
                 |> someOrEmptyMap
             Content = 
                 node |> tryFindByName "content"
-                |> Option.map (toMappingNode >> toNamedMapM (MediaType.parse rootNode))
+                |> Option.map (toMappingNode >> toNamedMapM (MediaType.parse findByRef))
                 |> someOrEmptyMap
         } : Response
-
-    let parseRef refString =
-        refString 
-        |> findByRef rootNode
-        |> parse rootNode
     
     match node with
-    | Ref r -> r |> parseRef
+    | Ref r -> r |> findByRef |> parse findByRef
     | _ -> node |> parseDirect

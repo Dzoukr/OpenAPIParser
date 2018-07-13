@@ -5,7 +5,7 @@ open Core
 open YamlDotNet.RepresentationModel
 
 /// Parse RequestBody from mapping node
-let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
+let rec parse findByRef (node:YamlMappingNode) = 
     
     let parseDirect node = 
         {
@@ -13,14 +13,9 @@ let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
             Required = node |> tryFindScalarValue "required" |> someBoolOr false
             Content = 
                 node |> findByNameM "content" toMappingNode 
-                |> toMappingNode |> toNamedMapM (MediaType.parse rootNode)
+                |> toMappingNode |> toNamedMapM (MediaType.parse findByRef)
         } : RequestBody
 
-    let parseRef refString =
-        refString 
-        |> findByRef rootNode
-        |> parse rootNode
-    
     match node with
-    | Ref r -> r |> parseRef
+    | Ref r -> r |> findByRef |> parse findByRef
     | _ -> node |> parseDirect

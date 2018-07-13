@@ -5,7 +5,7 @@ open Core
 open YamlDotNet.RepresentationModel
 
 /// Parse MediaType from mapping node
-let parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
+let parse findByRef (node:YamlMappingNode) = 
     {
-        Schema = node |> findSchema (toMappingNode >> Schema.parse rootNode)
+        Schema = node |> findSchema (toMappingNode >> Schema.parse findByRef)
     } : MediaType

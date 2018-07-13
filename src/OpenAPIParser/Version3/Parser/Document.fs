@@ -9,12 +9,14 @@ open Newtonsoft.Json.Converters
 open System.Dynamic
 
 /// Parse specification from mapping node
-let parse (rootNode:YamlMappingNode) = {
-    SpecificationVersion = rootNode |> findScalarValue "openapi"
-    Info = rootNode |> findByNameM "info" (toMappingNode >> Info.parse)
-    Paths = rootNode |> findByNameM "paths" (toMappingNode >> toNamedMapM (Path.parse rootNode))
-    Components = rootNode |> tryFindByName "components" |> Option.map (toMappingNode >> Components.parse rootNode)
-}
+let parse (rootNode:YamlMappingNode) = 
+    let findByRef = Core.findByRef rootNode
+    {
+        SpecificationVersion = rootNode |> findScalarValue "openapi"
+        Info = rootNode |> findByNameM "info" (toMappingNode >> Info.parse)
+        Paths = rootNode |> findByNameM "paths" (toMappingNode >> toNamedMapM (Path.parse findByRef))
+        Components = rootNode |> tryFindByName "components" |> Option.map (toMappingNode >> Components.parse findByRef)
+    }
 
 /// Parse specification from YAML string
 let parseFromYaml content =

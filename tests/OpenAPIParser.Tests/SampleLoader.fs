@@ -10,7 +10,7 @@ let parseWithRoot parseFn name =
     let reader = new StringReader(yamlFile)
     let yaml = YamlStream()
     yaml.Load(reader)
-    yaml.Documents.[0].RootNode :?> YamlMappingNode |> (fun n -> parseFn n n)
+    yaml.Documents.[0].RootNode :?> YamlMappingNode |> (fun n -> parseFn (findByRef n) n)
 
 let parse parseFn name =
     let yamlFile = Path.Combine([|AppDomain.CurrentDomain.BaseDirectory; "Samples"; name |]) |> File.ReadAllText
@@ -21,4 +21,4 @@ let parse parseFn name =
 
 let parseMapWithRoot parseFn name =
     let root = name |> parse id
-    root |> toNamedMapM (parseFn root)
+    root |> toNamedMapM (parseFn (findByRef root))

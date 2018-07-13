@@ -5,7 +5,7 @@ open Core
 open YamlDotNet.RepresentationModel
 
 /// Parse Operation from mapping node
-let parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
+let parse findByRef (node:YamlMappingNode) = 
     {
         Tags =
             node 
@@ -20,15 +20,15 @@ let parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
             node 
             |> tryFindByName "parameters"
             |> Option.map (seqValue)
-            |> Option.map (List.map (toMappingNode >> Parameter.parse rootNode))
+            |> Option.map (List.map (toMappingNode >> Parameter.parse findByRef))
             |> someOrEmptyList
         RequestBody =
             node
-            |> tryFindByNameM "requestBody" (toMappingNode >> RequestBody.parse rootNode)
+            |> tryFindByNameM "requestBody" (toMappingNode >> RequestBody.parse findByRef)
         Responses = 
             node 
             |> tryFindByName "responses"
-            |> Option.map (toMappingNode >> toNamedMapM (Response.parse rootNode))
+            |> Option.map (toMappingNode >> toNamedMapM (Response.parse findByRef))
             |> someOrEmptyMap
         Deprecated = node |> tryFindScalarValue "deprecated" |> someBoolOr false
     }

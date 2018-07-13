@@ -107,47 +107,47 @@
  Parse Info from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Schema.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Schema.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Schema from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Header.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Header.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Header from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.MediaType.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.MediaType.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse MediaType from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.RequestBody.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.RequestBody.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse RequestBody from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Response.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Response.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Response from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Parameter.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Parameter.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Parameter from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Components.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Components.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Components from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Operation.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Operation.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Operation from mapping node
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Path.parse(YamlDotNet.RepresentationModel.YamlMappingNode,YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Path.parse(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse Path from mapping node
 </summary>

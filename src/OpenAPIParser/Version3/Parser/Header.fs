@@ -5,7 +5,7 @@ open Core
 open YamlDotNet.RepresentationModel
 
 /// Parse Header from mapping node
-let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) = 
+let rec parse findByRef (node:YamlMappingNode) = 
     
     let parseDirect node = 
         {
@@ -13,14 +13,9 @@ let rec parse (rootNode:YamlMappingNode) (node:YamlMappingNode) =
             Required = node |> tryFindScalarValue "required" |> someBoolOr false
             Deprecated = node |> tryFindScalarValue "deprecated" |> someBoolOr false
             AllowEmptyValue = node |> tryFindScalarValue "allowEmptyValue" |> someBoolOr false
-            Schema = node |> findSchema (toMappingNode >> Schema.parse rootNode)
+            Schema = node |> findSchema (toMappingNode >> Schema.parse findByRef)
         } : Header
-
-    let parseRef refString =
-        refString 
-        |> findByRef rootNode
-        |> parse rootNode
     
     match node with
-    | Ref r -> r |> parseRef
+    | Ref r -> r |> findByRef |> parse findByRef
     | _ -> node |> parseDirect
