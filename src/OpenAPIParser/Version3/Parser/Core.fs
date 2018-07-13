@@ -1,5 +1,6 @@
 module OpenAPIParser.Version3.Parser.Core
 
+open System
 open YamlDotNet.RepresentationModel
 
 /// Find node by name
@@ -68,6 +69,16 @@ let someOrEmptyList = function
     | None -> List.Empty
 
 let (|Ref|_|) (node:YamlMappingNode) = node |> tryFindScalarValue "$ref"
+
+let toLocalAndRemoteRef (refString:string) =
+    let parts = refString.Split([|'#'|])
+    let emptyToNone value = 
+        match String.IsNullOrWhiteSpace value with
+        | true -> None
+        | false -> Some value
+    (emptyToNone parts.[0]), (emptyToNone parts.[1])
+
+#warning "Create some loader by location and file extension"
 
 /// Find node by ref string
 let findByRef (rootNode:YamlMappingNode) (refString:string) =
