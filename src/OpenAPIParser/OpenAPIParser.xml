@@ -7,7 +7,7 @@
  Find schema
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Core.findByRef(YamlDotNet.RepresentationModel.YamlMappingNode,System.String)">
+<member name="M:OpenAPIParser.Version3.Parser.Core.findByRef(Microsoft.FSharp.Core.FSharpFunc{System.String,YamlDotNet.RepresentationModel.YamlMappingNode},YamlDotNet.RepresentationModel.YamlMappingNode,System.String)">
 <summary>
  Find node by ref string
 </summary>
@@ -157,14 +157,9 @@
  Load specification from JSON file
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Document.parseFromJson(System.String)">
+<member name="M:OpenAPIParser.Version3.Parser.Document.parseFromJson(System.String,System.String)">
 <summary>
  Parse specification from JSON string
-</summary>
-</member>
-<member name="M:OpenAPIParser.Version3.Parser.Document.convertJsonToYaml(System.String)">
-<summary>
- Convert JSON string to YAML
 </summary>
 </member>
 <member name="M:OpenAPIParser.Version3.Parser.Document.loadFromYamlFile(System.String)">
@@ -172,14 +167,19 @@
  Load specification from YAML file
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Document.parseFromYaml(System.String)">
+<member name="M:OpenAPIParser.Version3.Parser.Document.parseFromYaml(System.String,System.String)">
 <summary>
  Parse specification from YAML string
 </summary>
 </member>
-<member name="M:OpenAPIParser.Version3.Parser.Document.parse(YamlDotNet.RepresentationModel.YamlMappingNode)">
+<member name="M:OpenAPIParser.Version3.Parser.Document.parse(System.String,YamlDotNet.RepresentationModel.YamlMappingNode)">
 <summary>
  Parse specification from mapping node
+</summary>
+</member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.convertJsonToYaml(System.String)">
+<summary>
+ Convert JSON string to YAML
 </summary>
 </member>
 </members>

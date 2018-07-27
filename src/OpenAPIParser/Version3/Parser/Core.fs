@@ -70,27 +70,34 @@ let someOrEmptyList = function
 
 let (|Ref|_|) (node:YamlMappingNode) = node |> tryFindScalarValue "$ref"
 
-let toLocalAndRemoteRef (refString:string) =
+let toFileAndPathRef (refString:string) =
     let parts = refString.Split([|'#'|])
     let emptyToNone value = 
         match String.IsNullOrWhiteSpace value with
         | true -> None
         | false -> Some value
-    (emptyToNone parts.[0]), (emptyToNone parts.[1])
-
-#warning "Create some loader by location and file extension"
+    if refString.Contains("#") then
+        (emptyToNone parts.[0]), (emptyToNone parts.[1])
+    else (Some refString, None)
 
 /// Find node by ref string
-let findByRef (rootNode:YamlMappingNode) (refString:string) =
+let findByRef (fileLoader:string -> YamlMappingNode) (rootNode:YamlMappingNode) (refString:string) =
     try
-        let parts = refString.Split([|'/'|]) |> Array.filter (fun x -> x <> "#")
-        let foldFn (node:YamlMappingNode) (name:string) =
-            node.Children 
-            |> Seq.filter (fun x -> x.Key.ToString() = name)
-            |> Seq.head
-            |> (fun x -> x.Value |> toMappingNode)
-        parts |> Array.fold foldFn rootNode
-    with _ -> failwith <| sprintf "Cannot find '%s' in node %A" refString rootNode
+        let findPathInNode (path:string) (node:YamlMappingNode)  =
+            let parts = path.Split([|'/'|], StringSplitOptions.RemoveEmptyEntries)
+            let foldFn (n:YamlMappingNode) (name:string) =
+                n.Children 
+                |> Seq.filter (fun x -> x.Key.ToString() = name)
+                |> Seq.head
+                |> (fun x -> x.Value |> toMappingNode)
+            parts |> Array.fold foldFn node
+        
+        match toFileAndPathRef refString with
+        | Some file, Some path -> file |> fileLoader |> findPathInNode path
+        | None, Some path -> rootNode |> findPathInNode path
+        | Some file, None -> file |> fileLoader |> findPathInNode ""
+        | None, None -> failwithf "Invalid $ref string '%s'" refString
+    with ex -> failwith <| sprintf "Cannot find '%s' in node %A, exception thrown: %A" refString rootNode ex
 
 /// Find schema
 let findSchema mapFn node =

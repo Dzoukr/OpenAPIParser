@@ -8,27 +8,15 @@ open Newtonsoft.Json
 open Newtonsoft.Json.Converters
 open System.Dynamic
 
-/// Parse specification from mapping node
-let parse (rootNode:YamlMappingNode) = 
-    let findByRef = Core.findByRef rootNode
-    {
-        SpecificationVersion = rootNode |> findScalarValue "openapi"
-        Info = rootNode |> findByNameM "info" (toMappingNode >> Info.parse)
-        Paths = rootNode |> findByNameM "paths" (toMappingNode >> toNamedMapM (Path.parse findByRef))
-        Components = rootNode |> tryFindByName "components" |> Option.map (toMappingNode >> Components.parse findByRef)
-    }
+let private readFile p = p |> File.ReadAllText
 
-/// Parse specification from YAML string
-let parseFromYaml content =
+let private toYaml content =
     let reader = new StringReader(content)
     let yaml = YamlStream()
     yaml.Load(reader)
-    yaml.Documents.[0].RootNode |> toMappingNode |> parse
+    yaml.Documents.[0].RootNode |> toMappingNode
 
-let private readFile p = p |> File.ReadAllText
-
-/// Load specification from YAML file
-let loadFromYamlFile file = file |> readFile |> parseFromYaml
+let private getExtension = Path.GetExtension >> (fun x -> x.ToLower())
 
 /// Convert JSON string to YAML
 let convertJsonToYaml json =
@@ -37,8 +25,36 @@ let convertJsonToYaml json =
     let serializer = new YamlDotNet.Serialization.Serializer();
     serializer.Serialize(deserializedObject)
 
+let refFileLoader (rootLocation:string) (file:string) =
+    let filePath = Path.Combine(rootLocation,file)
+    match getExtension file with
+    | ".yaml" -> filePath |> readFile |> toYaml
+    | ".json" -> filePath |> readFile |> convertJsonToYaml |> toYaml
+    | _ -> failwith "Only .yaml & .json files are supported."
+
+
+/// Parse specification from mapping node
+let parse (rootLocation:string) (rootNode:YamlMappingNode) = 
+    let findByRef = Core.findByRef (refFileLoader rootLocation) rootNode
+    {
+        SpecificationVersion = rootNode |> findScalarValue "openapi"
+        Info = rootNode |> findByNameM "info" (toMappingNode >> Info.parse)
+        Paths = rootNode |> findByNameM "paths" (toMappingNode >> toNamedMapM (Path.parse findByRef))
+        Components = rootNode |> tryFindByName "components" |> Option.map (toMappingNode >> Components.parse findByRef)
+    }
+
+/// Parse specification from YAML string
+let parseFromYaml rootLocation content = content |> toYaml |> parse rootLocation
+
+/// Load specification from YAML file
+let loadFromYamlFile file = 
+    let fileLocation = file |> Path.GetDirectoryName
+    file |> readFile |> parseFromYaml fileLocation
+
 /// Parse specification from JSON string
-let parseFromJson content = content |> convertJsonToYaml |> parseFromYaml
+let parseFromJson rootLocation content = content |> convertJsonToYaml |> parseFromYaml rootLocation
 
 /// Load specification from JSON file
-let loadFromJsonFile file = file |> readFile |> parseFromJson
+let loadFromJsonFile file = 
+    let fileLocation = file |> Path.GetDirectoryName
+    file |> readFile |> parseFromJson fileLocation

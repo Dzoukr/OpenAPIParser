@@ -4,21 +4,20 @@ open System
 open System.IO
 open YamlDotNet.RepresentationModel
 open OpenAPIParser.Version3.Parser.Core
+open OpenAPIParser.Version3.Parser
+
+let samplesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Samples")
+
+let getSamplePath p = Path.Combine(samplesPath, p)
+
+let loader = Document.refFileLoader samplesPath
 
 let parseWithRoot parseFn name =
-    let yamlFile = Path.Combine([|AppDomain.CurrentDomain.BaseDirectory; "Samples"; name |]) |> File.ReadAllText
-    let reader = new StringReader(yamlFile)
-    let yaml = YamlStream()
-    yaml.Load(reader)
-    yaml.Documents.[0].RootNode :?> YamlMappingNode |> (fun n -> parseFn (findByRef n) n)
+    let root = name |> loader
+    parseFn (findByRef loader root) root
 
-let parse parseFn name =
-    let yamlFile = Path.Combine([|AppDomain.CurrentDomain.BaseDirectory; "Samples"; name |]) |> File.ReadAllText
-    let reader = new StringReader(yamlFile)
-    let yaml = YamlStream()
-    yaml.Load(reader)
-    yaml.Documents.[0].RootNode :?> YamlMappingNode |> parseFn
+let parse parseFn name = name |> loader |> parseFn
 
 let parseMapWithRoot parseFn name =
-    let root = name |> parse id
-    root |> toNamedMapM (parseFn (findByRef root))
+    let root = name |> loader
+    root |> toNamedMapM (parseFn (findByRef loader root))
