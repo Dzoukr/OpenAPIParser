@@ -177,6 +177,11 @@
  Parse specification from mapping node
 </summary>
 </member>
+<member name="M:OpenAPIParser.Version3.Parser.Document.refFileLoader(System.String,System.String)">
+<summary>
+ File loader for $ref references
+</summary>
+</member>
 <member name="M:OpenAPIParser.Version3.Parser.Document.convertJsonToYaml(System.String)">
 <summary>
  Convert JSON string to YAML

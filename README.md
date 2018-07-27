@@ -1,3 +1,5 @@
+<img src="https://github.com/Dzoukr/OpenAPITypeProvider/raw/master/logo.jpg" alt="drawing" width="100px"/>
+
 # Open API F# Parser
 
 Simple library for parsing YAML/JSON Open API (previously called as Swagger) specification (version 3.0.1). Originally part of my type provider, but I will probably never finish it, so at least community can use part of it for own projects. :)

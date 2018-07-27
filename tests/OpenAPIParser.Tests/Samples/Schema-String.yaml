@@ -16,3 +16,7 @@ DateTime:
 Password:
   type: string
   format: password
+
+UUID:
+  type: string
+  format: uuid

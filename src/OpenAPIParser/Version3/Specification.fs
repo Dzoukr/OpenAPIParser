@@ -39,6 +39,7 @@ type StringFormat =
     | Date
     | DateTime
     | Password
+    | UUID
     with static member Default = String
 
 type Schema =

@@ -1,3 +1,8 @@
+### 1.1.0 - June 12 2018
+* Added support for $ref targetting different file
+* Breaking change: Parsing functions require root file location (for correct $ref behavior)
+* Added support for UUID string format
+
 ### 1.0.3 - June 12 2018
 * Lowering minimal dependencies version
 

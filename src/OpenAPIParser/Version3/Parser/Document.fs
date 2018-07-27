@@ -25,6 +25,7 @@ let convertJsonToYaml json =
     let serializer = new YamlDotNet.Serialization.Serializer();
     serializer.Serialize(deserializedObject)
 
+/// File loader for $ref references
 let refFileLoader (rootLocation:string) (file:string) =
     let filePath = Path.Combine(rootLocation,file)
     match getExtension file with

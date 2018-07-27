@@ -21,6 +21,7 @@ let private stringFormatFromString = function
     | "date" -> StringFormat.Date
     | "date-time" -> StringFormat.DateTime
     | "password" -> StringFormat.Password
+    | "uuid" -> StringFormat.UUID
     | _ -> StringFormat.Default
 
 let private tryParseFormat fn node =

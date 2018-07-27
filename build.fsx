@@ -48,7 +48,7 @@ Target.create "Nuget" (fun _ ->
             sprintf "PackageReleaseNotes=\"%s\"" (release.Notes |> toNotes)
             "PackageLicenseUrl=\"http://github.com/dzoukr/OpenAPIParser/blob/master/LICENSE.md\""
             "PackageProjectUrl=\"http://github.com/dzoukr/OpenAPIParser\""
-            "PackageIconUrl=\"https://avatars2.githubusercontent.com/u/851307?v=3&amp;s=64\""
+            "PackageIconUrl=\"https://raw.githubusercontent.com/Dzoukr/OpenAPITypeProvider/master/logo.jpg\""
             "PackageTags=\"FSharp OpenAPI Swagger Parser\""
             "Copyright=\"Roman Provazník - 2018\""
             "Authors=\"Roman Provazník\""

@@ -63,6 +63,13 @@ let ``Parses string schema (Password)``() =
     Assert.AreEqual(expected, actual)
 
 [<Test>]
+let ``Parses string schema (UUID)``() = 
+    let schemas = "Schema-String.yaml" |> SampleLoader.parseMapWithRoot Schema.parse
+    let expected = StringFormat.UUID |> Schema.String
+    let actual = schemas.["UUID"]
+    Assert.AreEqual(expected, actual)
+
+[<Test>]
 let ``Parses boolean schema``() = 
     let schemas = "Schema-Boolean.yaml" |> SampleLoader.parseMapWithRoot Schema.parse
     let expected = Schema.Boolean
