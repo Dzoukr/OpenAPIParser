@@ -20,3 +20,7 @@ Password:
 UUID:
   type: string
   format: uuid
+
+Enum:
+  type: string
+  enum: [a, b]

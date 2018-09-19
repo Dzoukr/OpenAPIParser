@@ -1,17 +1,15 @@
-#r "paket:
-nuget Fake.IO.FileSystem
-nuget Fake.Dotnet.Cli
-nuget Fake.DotNet.Testing.NUnit
-nuget Fake.Core.ReleaseNotes
-nuget Fake.Core.Target //"
+#r "paket: groupref Build //"
 
-#load "./.fake/build.fsx/intellisense.fsx"
-
+#load ".fake/build.fsx/intellisense.fsx"
+open System.IO
+open Fake
+open Fake.Core
 open Fake.IO
 open Fake.IO.Globbing.Operators
+open Fake.Core.TargetOperators
 open Fake.DotNet
 open Fake.DotNet.Testing
-open Fake.Core
+open Fake.DotNet.NuGet
 
 let description = "Simple F# parser for Open API specification"
 let projectSrc = "src/OpenAPIParser"

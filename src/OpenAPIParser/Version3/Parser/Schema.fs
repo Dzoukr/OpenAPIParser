@@ -24,6 +24,18 @@ let private stringFormatFromString = function
     | "uuid" -> StringFormat.UUID
     | _ -> StringFormat.Default
 
+let private tryConvertToEnum node format =
+    match format with
+    | StringFormat.String ->
+        node 
+        |> tryFindByName "enum" 
+        |> Option.map seqValue
+        |> Option.map (List.map (fun x -> x.ToString()))
+        |> function
+            | Some x -> StringFormat.Enum x
+            | None -> StringFormat.String
+    | _ -> format
+
 let private tryParseFormat fn node =
     node 
     |> tryFindScalarValue "format"
@@ -70,7 +82,7 @@ let rec parse findByRef (node:YamlMappingNode) =
             let items = node |> findByName "items" |> toMappingNode
             items |> parse findByRef |> Schema.Array
         | Integer -> node |> tryParseFormat intFormatFromString |> Schema.Integer
-        | String -> node |> tryParseFormat stringFormatFromString |> Schema.String
+        | String -> node |> tryParseFormat stringFormatFromString |> tryConvertToEnum node |> Schema.String
         | Boolean -> Schema.Boolean
         | Number -> node |> tryParseFormat numberFormatFromString |> Schema.Number
         | _ ->

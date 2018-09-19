@@ -40,6 +40,7 @@ type StringFormat =
     | DateTime
     | Password
     | UUID
+    | Enum of allowedValues:string list
     with static member Default = String
 
 type Schema =

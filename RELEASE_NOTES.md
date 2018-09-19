@@ -1,3 +1,6 @@
+### 1.2.0 - September 19 2018
+* Added support for enum string
+
 ### 1.1.0 - June 12 2018
 * Added support for $ref targetting different file
 * Breaking change: Parsing functions require root file location (for correct $ref behavior)
