@@ -59,7 +59,7 @@ Target.create "Nuget" (fun _ ->
 )
 
 open Fake.Core.TargetOperators
-"RunTests" ==> "CleanBinObj" ==> "Nuget"
+"CleanBinObj" ==> "RunTests"  ==> "Nuget"
 
 // start build
 Target.runOrDefault "Build"

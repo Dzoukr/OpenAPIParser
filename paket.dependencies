@@ -1,6 +1,7 @@
 source https://api.nuget.org/v3/index.json
+framework: auto-detect
 
-nuget FSharp.Core = 4.2.3
+nuget FSharp.Core = 4.3.4
 nuget YamlDotNet = 4.3.1
 nuget Newtonsoft.Json = 10.0.1
 nuget NUnit

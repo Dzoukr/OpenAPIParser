@@ -1,3 +1,6 @@
+### 1.3.0 - October 12 2018
+* Added support for .NET 4.5
+
 ### 1.2.0 - September 19 2018
 * Added support for enum string
 
