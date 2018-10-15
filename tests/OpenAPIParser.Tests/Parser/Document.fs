@@ -16,10 +16,10 @@ let ``Parses document with remote refs (Petstore External)``() =
     let found = doc.Components.Value.Schemas |> Map.find "Error"
     let props =
         [
-            "code", Schema.Integer (IntFormat.Default)
-            "message", Schema.String (StringFormat.Default)
+            "code", Schema.Inline <| SchemaDefinition.Integer (IntFormat.Default)
+            "message", Schema.Inline <| SchemaDefinition.String (StringFormat.Default)
         ] |> Map
-    let expected = Schema.Object(props, ["code"; "message"])
+    let expected = SchemaDefinition.Object(props, ["code"; "message"]) |> (fun x -> Schema.Reference("Document-Petstore.yaml#/components/schemas/Error", x))
     let path = doc.Paths.["/pets"]
     Assert.AreEqual("Blah", path.Get.Value.Description.Value)
     Assert.AreEqual(expected, found)

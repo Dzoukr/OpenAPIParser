@@ -11,7 +11,7 @@ let sample = {
     Headers = ["myHeader", Header.sample ] |> Map
     Content = 
         [
-            "application/json", { Schema = Schema.Integer(IntFormat.Default) }
+            "application/json", { Schema = SchemaDefinition.Integer(IntFormat.Default) |> Schema.Inline }
             "application/xml", { Schema = Schema.Empty }
         ] |> Map
 }

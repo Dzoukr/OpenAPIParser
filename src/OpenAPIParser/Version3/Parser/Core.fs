@@ -103,4 +103,4 @@ let findByRef (fileLoader:string -> YamlMappingNode) (rootNode:YamlMappingNode) 
 let findSchema mapFn node =
     match node |> tryFindByName "schema" with
     | Some x -> x |> mapFn
-    | None -> OpenAPIParser.Version3.Specification.Schema.Empty
+    | None -> OpenAPIParser.Version3.Specification.SchemaDefinition.Empty |> OpenAPIParser.Version3.Specification.Schema.Inline

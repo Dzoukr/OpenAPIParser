@@ -43,7 +43,7 @@ type StringFormat =
     | Enum of allowedValues:string list
     with static member Default = String
 
-type Schema =
+type SchemaDefinition =
     | Array of items:Schema
     | Object of props:Map<string, Schema> * required:string list
     | Boolean
@@ -54,6 +54,12 @@ type Schema =
         static member Empty = Object(Map.empty, List.empty)
     // AnyOf: TBD LATER (maybe :))
     // OneOf: TBD LATER (maybe :))
+and
+    Schema =
+        | Inline of SchemaDefinition
+        | Reference of string * SchemaDefinition
+    with
+        static member Empty = SchemaDefinition.Empty |> Inline
 
 type MediaType  = {
     Schema: Schema

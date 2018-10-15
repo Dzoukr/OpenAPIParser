@@ -9,7 +9,7 @@ let rbSample = {
     Description = Some "Hello"
     Required = false
     Content =
-        ["application/json", { Schema = Schema.Integer(IntFormat.Default) }] |> Map
+        ["application/json", { Schema = SchemaDefinition.Integer(IntFormat.Default) |> Schema.Inline }] |> Map
 }
 
 [<Test>]

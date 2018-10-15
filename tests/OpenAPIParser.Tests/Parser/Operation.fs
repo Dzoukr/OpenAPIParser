@@ -19,7 +19,7 @@ let sample = {
                 Required = true
                 Deprecated = false
                 AllowEmptyValue = false
-                Schema = Schema.String(StringFormat.Default)
+                Schema = Schema.Inline <| SchemaDefinition.String(StringFormat.Default)
                 Content = Map.empty
             }
         ]
@@ -31,8 +31,8 @@ let sample = {
                         "application/x-www-form-urlencoded",
                         { 
                             Schema = 
-                                Schema.Object (
-                                    ["name", Schema.String (StringFormat.Default)] |> Map
+                                Schema.Inline <| SchemaDefinition.Object (
+                                    ["name", Schema.Inline <| SchemaDefinition.String (StringFormat.Default)] |> Map
                                     ,["name"]
                                 ) 
                         }

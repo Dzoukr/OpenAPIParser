@@ -12,9 +12,9 @@ let sample = {
     Required = true
     Deprecated = true
     AllowEmptyValue = true
-    Schema = Schema.String(StringFormat.Default)
+    Schema = SchemaDefinition.String(StringFormat.Default) |> Inline
     Content =
-        ["application/json", { Schema = Schema.Integer(IntFormat.Default) }] |> Map
+        ["application/json", { Schema = Schema.Inline <| SchemaDefinition.Integer(IntFormat.Default) }] |> Map
 }
 
 [<Test>]

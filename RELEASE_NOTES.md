@@ -1,3 +1,9 @@
+### 2.0.0 - October 15 2018
+* Breaking change: Schema definition now with reference link
+
+### 2.0.0-beta1 - October 12 2018
+* Breaking change: Schema definition now with reference link
+
 ### 1.3.0 - October 12 2018
 * Added support for .NET 4.5
 

@@ -10,7 +10,7 @@ let sample = {
     Required = true
     Deprecated = true
     AllowEmptyValue = true
-    Schema = Schema.Integer(IntFormat.Default)
+    Schema = Schema.Inline <| SchemaDefinition.Integer(IntFormat.Default)
 }
 
 [<Test>]

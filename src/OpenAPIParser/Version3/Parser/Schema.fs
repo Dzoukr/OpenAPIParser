@@ -59,32 +59,38 @@ let private (|Number|_|) (node:YamlMappingNode) = node |> isNodeType "number"
 let private (|Object|_|) (node:YamlMappingNode) = node |> isNodeType "object"
 let private (|AllOf|_|) (node:YamlMappingNode) = node |> tryFindByName "allOf" |> Option.map seqValue
 
-let private mergeSchemaPair (schema1:Schema) (schema2:Schema) = 
+let private mergeSchemaPair (schema1:SchemaDefinition) (schema2:SchemaDefinition) = 
     match schema1, schema2 with
-    | Schema.Object (p1, r1), Schema.Object (p2, r2) ->
+    | SchemaDefinition.Object (p1, r1), SchemaDefinition.Object (p2, r2) ->
         let required = (r1 @ r2) |> List.distinct
         let props = Map(Seq.concat [ (Map.toSeq p1) ; (Map.toSeq p2) ])
-        Schema.Object (props, required)
+        SchemaDefinition.Object (props, required)
     | _ -> failwith "Both schemas must be Object type"
 
-let private mergeSchemas (schemas:Schema list) = 
+let private mergeSchemas (schemas:Schema list) : SchemaDefinition = 
     match schemas with
     | [] -> failwith "Schema list should not be empty"
-    | list -> list |> List.reduce mergeSchemaPair
+    | list -> 
+        list 
+        |> List.fold (fun s1 s2 -> 
+            match s1, s2 with
+            | x, Schema.Inline y -> mergeSchemaPair x y
+            | x, Schema.Reference(_,y) -> mergeSchemaPair x y
+        ) SchemaDefinition.Empty
 
 /// Parse Schema from mapping node
 let rec parse findByRef (node:YamlMappingNode) =
     
-    let parseDirect node =
+    let parseDirect node : SchemaDefinition =
         match node with
         | AllOf n -> n |> List.map (toMappingNode >> parse findByRef) |> mergeSchemas
         | Array ->
             let items = node |> findByName "items" |> toMappingNode
-            items |> parse findByRef |> Schema.Array
-        | Integer -> node |> tryParseFormat intFormatFromString |> Schema.Integer
-        | String -> node |> tryParseFormat stringFormatFromString |> tryConvertToEnum node |> Schema.String
-        | Boolean -> Schema.Boolean
-        | Number -> node |> tryParseFormat numberFormatFromString |> Schema.Number
+            items |> parse findByRef |> SchemaDefinition.Array
+        | Integer -> node |> tryParseFormat intFormatFromString |> SchemaDefinition.Integer
+        | String -> node |> tryParseFormat stringFormatFromString |> tryConvertToEnum node |> SchemaDefinition.String
+        | Boolean -> SchemaDefinition.Boolean
+        | Number -> node |> tryParseFormat numberFormatFromString |> SchemaDefinition.Number
         | _ ->
             match node |> tryFindByNameM "properties" toMappingNode with
             | Some p ->
@@ -94,9 +100,9 @@ let rec parse findByRef (node:YamlMappingNode) =
                     |> Option.map seqValue
                     |> Option.map (List.map (fun x -> x.ToString()))
                     |> optionToList
-                Schema.Object(props, required)
-            | None -> Schema.Empty
+                SchemaDefinition.Object(props, required)
+            | None -> SchemaDefinition.Empty
     
     match node with
-    | Ref r -> r |> findByRef |> parse findByRef
-    | _ -> node |> parseDirect
+    | Ref r -> r |> findByRef |> parseDirect |> (fun s -> Schema.Reference(r, s))
+    | _ -> node |> parseDirect |> Schema.Inline
