@@ -28,6 +28,8 @@ components:
   schemas:
     Error:
       $ref: 'Document-Petstore.yaml#/components/schemas/Error'
+    JustLikeError:
+      $ref: '#/components/schemas/Error'
     Basic:
       $ref: 'Schema-Object.yaml#/Basic'
     Standalone:

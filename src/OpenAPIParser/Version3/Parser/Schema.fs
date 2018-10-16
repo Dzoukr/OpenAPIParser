@@ -81,6 +81,10 @@ let private mergeSchemas (schemas:Schema list) : SchemaDefinition =
 /// Parse Schema from mapping node
 let rec parse findByRef (node:YamlMappingNode) =
     
+    let extract = function
+        | Schema.Inline d -> d
+        | Schema.Reference(_,d) -> d
+
     let parseDirect node : SchemaDefinition =
         match node with
         | AllOf n -> n |> List.map (toMappingNode >> parse findByRef) |> mergeSchemas
@@ -103,6 +107,11 @@ let rec parse findByRef (node:YamlMappingNode) =
                 SchemaDefinition.Object(props, required)
             | None -> SchemaDefinition.Empty
     
-    match node with
-    | Ref r -> r |> findByRef |> parseDirect |> (fun s -> Schema.Reference(r, s))
-    | _ -> node |> parseDirect |> Schema.Inline
+    let rec innerParse (node:YamlMappingNode) =
+        match node with
+        | Ref r -> 
+            let res = r |> findByRef |> innerParse |> extract
+
+            Schema.Reference(r, res)
+        | _ -> node |> parseDirect |> Schema.Inline
+    node |> innerParse

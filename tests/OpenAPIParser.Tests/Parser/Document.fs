@@ -23,3 +23,18 @@ let ``Parses document with remote refs (Petstore External)``() =
     let path = doc.Paths.["/pets"]
     Assert.AreEqual("Blah", path.Get.Value.Description.Value)
     Assert.AreEqual(expected, found)
+
+
+[<Test>]
+let ``Parses document with nested remote refs (Petstore External)``() = 
+    let doc = "Document-Petstore-External.yaml" |> SampleLoader.getSamplePath |> Document.loadFromYamlFile
+    let found = doc.Components.Value.Schemas |> Map.find "JustLikeError"
+    let props =
+        [
+            "code", Schema.Inline <| SchemaDefinition.Integer (IntFormat.Default)
+            "message", Schema.Inline <| SchemaDefinition.String (StringFormat.Default)
+        ] |> Map
+    let expected = SchemaDefinition.Object(props, ["code"; "message"]) |> (fun x -> Schema.Reference("#/components/schemas/Error", x))
+    Assert.AreEqual(expected, found)
+
+    

@@ -1,3 +1,6 @@
+### 2.0.1 - October 16 2018
+* Fixing #1
+
 ### 2.0.0 - October 15 2018
 * Breaking change: Schema definition now with reference link
 
